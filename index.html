@@ -27,6 +27,7 @@ h1,h2,h3{font-weight:700;letter-spacing:-.04em;line-height:1.05}
 .nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad);mix-blend-mode:difference;color:#fff;font-size:14px;font-weight:600}
 .nav ul{display:flex;gap:clamp(16px,3vw,44px);list-style:none}
 .nav a{transition:opacity .2s}.nav a:hover{opacity:.55}
+@media(max-width:700px){.nav{mix-blend-mode:normal;color:var(--ink);background:rgba(247,247,247,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:14px var(--pad);justify-content:center;font-size:13px}.nav>a{display:none}.nav ul{width:100%;justify-content:space-between;gap:8px}}
 
 .rv{opacity:0;transform:translateY(32px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
 .rv.in{opacity:1;transform:none}
@@ -350,6 +351,16 @@ body:has(.sheet.on) .nav{opacity:0;pointer-events:none}
   .book{--w:38vw;--d:7vw}
   .stage{--W:44vw}
   .cgrid p:first-child,.cgrid ul{grid-column:1/13}
+}
+@media (max-width:560px){
+  .col{grid-column:1/13}
+  .col li,.col p{grid-template-columns:5.4em 1fr}
+  .col .long{display:block}
+  .tags::before{width:100%;margin-right:0;display:block}
+  .tags span+span::before{content:none}.tags span{margin-right:1.1em}
+  .about-grid .pf{max-width:200px}
+  .book{--w:40vw;--d:7vw}
+  .shelf{justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition-duration:.01ms!important}
