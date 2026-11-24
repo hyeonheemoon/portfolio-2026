@@ -159,6 +159,8 @@ body:has(.sheet.on) .nav{opacity:0;pointer-events:none}
 .sheet.tall .shero img{max-height:none;max-width:860px;margin:0 auto}
 .sheet.tall .simgs{max-width:860px;margin-left:auto;margin-right:auto;gap:0}
 .sheet .simgs.phones{max-width:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:clamp(18px,2vw,32px) var(--pad);align-items:start}
+.sheet .simgs.posters{max-width:960px;margin-left:auto;margin-right:auto;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));align-items:start;gap:clamp(18px,2vw,32px)}
+.sheet .simgs.posters img{cursor:zoom-in}
 .sheet .simgs.phones img{border-radius:18px;background:#fff}
 #project .tabs{margin-bottom:clamp(10px,2vw,30px)}
 /* 캐릭터: 스티커판 */
@@ -197,7 +199,7 @@ body:has(.sheet.on) .nav{opacity:0;pointer-events:none}
 .lff{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background-repeat:no-repeat;background-size:300% 100%;background-color:#f1f1ef;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
 .lff.k{transform:rotateY(180deg)}
 .lff::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.1),rgba(0,0,0,0) 14%,rgba(0,0,0,0) 86%,rgba(0,0,0,.1));pointer-events:none}
-.sembed{max-width:900px;margin:clamp(28px,4vw,56px) auto 0;border:1px solid var(--soft);background:#fff;overflow:hidden;position:relative;height:min(84vh,900px)}.sembed iframe{display:block;width:900px;height:calc(min(84vh,900px)/var(--k,1));border:0;transform:scale(var(--k,1));transform-origin:0 0}
+.sembed{margin:clamp(60px,9vw,140px) auto 0;overflow:hidden;position:relative;height:calc(13700px*var(--k,.84))}.sembed iframe{display:block;width:900px;height:13700px;border:0;transform:scale(var(--k,.84));transform-origin:0 0}
 .sub-h{margin-top:clamp(56px,7vw,110px);font-size:clamp(24px,2.6vw,38px);letter-spacing:-.04em}
 .illu{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--pad)}
 .illu figure{margin:0;overflow:hidden;background:var(--panel);aspect-ratio:4/5;border-radius:10px}
@@ -690,14 +692,14 @@ const WORKS=[
   {id:'hamkkefarm',cat:'web',title:'함께팜',sub:'브랜드 페이지',n:3,meta:[['Platform','Web (PC)'],['Pages','브랜드 메인, 입점, 함께파트너스']],intro:'생산자와 소비자를 함께 키우는 브랜드의 첫 화면.'},
   {id:'oyster',cat:'detail',title:'서원수산 통영 생굴',sub:'수산물 상세페이지',n:2,meta:[['Type','상세페이지'],['Category','수산물 · 식품']],intro:'바다의 풍미를, 당일 작업한 신선함으로 한 장에.'},
   {id:'nerive',cat:'detail',title:'NÉRIVE PDRN 핑크 베일 앰플',sub:'가상 브랜드 화장품 상세페이지',n:3,meta:[['Type','상세페이지 (가상 브랜드)'],['Category','스킨케어']],intro:'핑크빛 수분 한 겹을 사진처럼 읽히게 만든 상세페이지.'},
-  {id:'tomat',cat:'detail',title:'TOMAT! Juicy Blur Tint',sub:'AI 제작 · 가상 브랜드 립 제품 상세페이지',n:0,embed:'https://hyeonheemoon.github.io/tomat-detail-page/',meta:[['Type','상세페이지 (가상 브랜드)'],['Category','립 메이크업'],['Made with','AI 이미지 · AI 영상']],links:[['라이브 페이지','https://hyeonheemoon.github.io/tomat-detail-page/']],intro:'토마토처럼 싱그러운 레드를 한 방울로. 이미지와 영상까지 모두 AI로 만든 상세페이지입니다.'},
+  {id:'tomat',cat:'detail',title:'TOMAT! Juicy Blur Tint',sub:'AI 제작 · 가상 브랜드 립 제품 상세페이지',n:0,embed:'https://hyeonheemoon.github.io/tomat-detail-page/',maxw:760,meta:[['Type','상세페이지 (가상 브랜드)'],['Category','립 메이크업'],['Made with','AI 이미지 · AI 영상']],links:[['라이브 페이지','https://hyeonheemoon.github.io/tomat-detail-page/']],intro:'토마토처럼 싱그러운 레드를 한 방울로. 이미지와 영상까지 모두 AI로 만든 상세페이지입니다.'},
   {id:'partners',cat:'app',title:'함께파트너스',sub:'파트너 모바일 앱',n:28,grid:true,meta:[['Platform','Mobile App'],['Screens','28']],intro:'가입부터 주문, 순위, 알림까지 한 손으로 끝내는 파트너 전용 앱.'},
 ];
 const CAT={web:'Web Design',app:'App',detail:'Detail page'};
 const appPanel=document.getElementById('w-app'),dgrid=document.getElementById('dgrid'),webPanel=document.getElementById('w-web');
 WORKS.forEach(w=>{
   const dir=`images/works/${w.id}/`;
-  DETAIL[w.id]={embed:w.embed,kind:CAT[w.cat],title:w.title,sub:w.sub,hero:dir+'thumb.jpg',meta:w.meta||[],links:w.links||[],intro:w.intro||'',secs:w.secs||[],
+  DETAIL[w.id]={maxw:w.maxw,embed:w.embed,kind:CAT[w.cat],title:w.title,sub:w.sub,hero:dir+'thumb.jpg',meta:w.meta||[],links:w.links||[],intro:w.intro||'',secs:w.secs||[],
     imgs:Array.from({length:w.n||0},(_,i)=>`${dir}${String(i+1).padStart(2,'0')}.jpg`),tall:w.cat==='detail'||w.cat==='web',grid:!!w.grid};
   if(w.cat==='app'||w.cat==='web'){
     (w.cat==='app'?appPanel:webPanel).insertAdjacentHTML('beforeend',`<article class="pj"><a class="pic rv" href="#${w.id}" data-open="${w.id}"><img src="${dir}thumb.jpg" alt="${w.title}" loading="lazy"></a>
@@ -738,7 +740,7 @@ dgrid.querySelectorAll('.dcard').forEach(c=>{
 /* 비어 있는 탭은 숨김 */
 /* AI Works: 프로젝트 하나 = 카드 하나. cover가 표지, imgs가 상세 안에 들어갈 이미지 */
 const AIP=[
- {id:'tomatai',title:'TOMAT! Juicy Blur Tint',sub:'AI 이미지 · 가상 브랜드 상세페이지',cover:'images/ai/tomat_cover.jpg',tall:true,embed:'https://hyeonheemoon.github.io/tomat-detail-page/',
+ {id:'tomatai',title:'TOMAT! Juicy Blur Tint',sub:'AI 이미지 · 가상 브랜드 상세페이지',cover:'images/ai/tomat_cover.jpg',tall:true,embed:'https://hyeonheemoon.github.io/tomat-detail-page/',maxw:760,
   imgs:[],
   links:[['라이브 페이지','https://hyeonheemoon.github.io/tomat-detail-page/']],
   meta:[['Type','상세페이지 (가상 브랜드)'],['Visual','제품컷 · 모델컷 · 영상 모두 AI']],
@@ -757,7 +759,7 @@ const AIP=[
   intro:'기능을 다한 건축물에 남겨진 시간과 기억을 예술로 다시 읽는 4인 기획전. 전시 기획은 GPT로 잡고, 제목 레터링을 뽑아 두 가지 색의 포스터로 풀었습니다.'}
 ];
 AIP.forEach(a=>{
- DETAIL[a.id]={kind:'AI Works',title:a.title,sub:a.sub,hero:a.cover,meta:a.meta||[],links:a.links||[],intro:a.intro||'',secs:[],imgs:a.imgs,tall:!!a.tall,embed:a.embed};
+ DETAIL[a.id]={kind:'AI Works',title:a.title,sub:a.sub,hero:a.cover,meta:a.meta||[],links:a.links||[],intro:a.intro||'',secs:[],imgs:a.imgs,tall:!!a.tall,maxw:a.maxw,embed:a.embed,posters:!a.tall&&!a.embed};
  document.getElementById('aigrid').insertAdjacentHTML('beforeend',`<a class="dcard rv" href="#${a.id}" data-open="${a.id}"><div class="dfr"><img src="${a.cover}" alt="${a.title}" loading="lazy"></div><b>${a.title}</b><span>${a.sub}</span></a>`);
 });
 if(!AIP.length)document.getElementById('t-ai').hidden=true;
@@ -855,13 +857,13 @@ function renderDetail(k){
    <p class="sintro">${d.intro}</p>
    ${d.secs.map(([h,p])=>`<div class="ssec"><h3>${h}</h3><p>${p}</p></div>`).join('')}
    ${d.flowAfter?'':d.flow||''}
-   ${d.embed?`<div class="sembed"><iframe src="${d.embed}" title="${d.title} 라이브 페이지" loading="lazy" allow="autoplay"></iframe></div>`:''}
-   ${d.imgs.length?`<div class="simgs${d.grid?' phones':''}"${d.maxw?` style="max-width:${d.maxw}px"`:''}>${d.imgs.map(s=>`<img src="${s}" alt="${d.title} 상세" loading="lazy">`).join('')}</div>`:''}
+   ${d.embed?`<div class="sembed"${d.maxw?` style="max-width:${d.maxw}px"`:''}><iframe src="${d.embed}" title="${d.title}" scrolling="no" loading="lazy" allow="autoplay"></iframe></div>`:''}
+   ${d.imgs.length?`<div class="simgs${d.grid?' phones':''}${d.posters?' posters':''}"${d.maxw?` style="max-width:${d.maxw}px"`:''}>${d.imgs.map(s=>`<img src="${s}" alt="${d.title} 상세" loading="lazy">`).join('')}</div>`:''}
    ${d.flowAfter?d.flow||'':''}
    ${nk===k?'':`<a class="snext" href="#${nk}" data-open="${nk}"><small>Next</small><span>${DETAIL[nk].title}</span></a>`}`;
   sheet.scrollTop=0;fitEmbed();
 }
-function fitEmbed(){document.querySelectorAll('.sembed').forEach(b=>{b.style.setProperty('--k',Math.min(1,b.clientWidth/900));});}
+function fitEmbed(){document.querySelectorAll('.sembed').forEach(b=>{b.style.setProperty('--k',b.clientWidth/900);});}
 addEventListener('resize',fitEmbed);
 function openDetail(k,push=true){
   if(!DETAIL[k])return;
